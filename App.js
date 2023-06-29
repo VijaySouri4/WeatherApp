@@ -1,19 +1,13 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import CurrentWeather from "./src/components/CurrentWeather";
-import UpcomingWeather from "./src/components/UpcomingWeather";
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import Tabs from './src/components/Tabs'
 
 const App = () => {
   return (
-    <View style={Styles.container}>
-      <UpcomingWeather />
-    </View>
-  );
-};
+    <NavigationContainer>
+      <Tabs></Tabs>
+    </NavigationContainer>
+  )
+}
 
-const Styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-export default App;
+export default App
