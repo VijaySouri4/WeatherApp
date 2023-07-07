@@ -1,25 +1,9 @@
 import React, { useState, useRef, useEffect, createRef } from 'react'
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  Switch,
-  SafeAreaView,
-  TextInput,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  StyleSheet,
-  Animated,
-  Dimensions,
-  Vibration,
-  Alert,
-  KeyboardAvoidingView,
-  Platform
-} from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import RowText from '../components/RowText'
 import AppleLogin from '../components/AppleLogin'
+import { weatherType } from '../utilities/weatherType'
 
 const CurrentWeather = () => {
   return (
@@ -37,14 +21,11 @@ const CurrentWeather = () => {
       </View>
       <RowText
         message1={"It's Sunny"}
-        message2={"It's perfect T-shirt weather"}
+        message2={weatherType['Haze'].message}
         messageonestyles={Styles.description}
         messagetwostyles={Styles.message}
         containerstyle={Styles.bodywrapper}
       ></RowText>
-      <View style={Styles.login}>
-        <AppleLogin />
-      </View>
     </SafeAreaView>
   )
 }
