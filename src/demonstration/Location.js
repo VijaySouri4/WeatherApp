@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { ActivityIndicator, StyleSheet, View, Text } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import Tabs from './src/components/Tabs'
+import { Platform, Text, View, StyleSheet } from 'react-native'
+import Device from 'expo-device'
 import * as Location from 'expo-location'
 
-//api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-
-const App = () => {
-  const [isLoading, setIsLoading] = useState(false)
+export default function App() {
   const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
 
   useEffect(() => {
     ;(async () => {
+      if (Platform.OS === 'android' && !Device.isDevice) {
+        setErrorMsg(
+          'Oops, this will not work on Snack in an Android Emulator. Try it on your device!'
+        )
+        return
+      }
       let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied')
@@ -24,23 +26,17 @@ const App = () => {
     })()
   }, [])
 
-  if (location) {
-    console.log('Location Retreived')
-    console.log(location)
-  }
-
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="green" />
-      </View>
-    )
+  let text = 'Waiting..'
+  if (errorMsg) {
+    text = errorMsg
+  } else if (location) {
+    text = JSON.stringify(location)
   }
 
   return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
+    <View style={styles.container}>
+      <Text style={styles.paragraph}>{text}</Text>
+    </View>
   )
 }
 
@@ -56,4 +52,3 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
-export default App
