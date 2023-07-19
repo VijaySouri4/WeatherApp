@@ -5,10 +5,19 @@ import RowText from '../components/RowText'
 import AppleLogin from '../components/AppleLogin'
 import { weatherType } from '../utilities/weatherType'
 
-const CurrentWeather = () => {
+const CurrentWeather = ({ weatherData }) => {
+  const {
+    main: { temp, feels_like, temp_max, temp_min },
+    weather
+  } = weatherData
+  const weatherCondition = weather[0].main
   return (
-    <SafeAreaView style={Styles.wrapper}>
-      <Text>WeatherApp</Text>
+    <SafeAreaView
+      style={[
+        Styles.wrapper,
+        { backgroundColor: weatherType[weatherCondition].backgroundColor }
+      ]}
+    >
       <View style={Styles.container}>
         <Feather name="sun" size={50} color="black" />
         <Text style={Styles.temp}>6</Text>
