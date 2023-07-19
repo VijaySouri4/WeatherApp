@@ -1,3 +1,0 @@
-
-###
-POST http://api.openweathermap.org/data/2.5/forecast?lat=-74.4429352472018&lon=40.49211704653287&appid=39d590fb83df57d8b493f232deff0207
